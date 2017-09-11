@@ -1,0 +1,40 @@
+from pandas import DataFrame, read_csv
+import pandas as pd
+
+from numpy import random
+import matplotlib.pyplot as plt
+import sys #only needed to determine Python version number
+import matplotlib #only needed to determine Matplotlib version number
+
+
+
+
+names = ['Bob','Jessica','Mary','John','Mel']
+ 
+'''
+seed(500) - Create seed
+randint(low=0,high=len(names)) - Generate a random integer between zero and the length of the list "names".
+names[n] - Select the name where its index is equal to n.
+for i in range(n) - Loop until i is equal to n, i.e. 1,2,3,....n.
+random_names = Select a random name from the name list and do this n times.
+
+'''
+random.seed(500)
+random_names = [names[random.randint(low=0,high=len(names))] for i in range(1000)]
+births = [random.randint(low=0,high=1000) for i in range(1000)]
+
+BabyDataSet = list(zip(random_names,births))
+df = pd.DataFrame(data = BabyDataSet, columns=['Names', 'Births'])
+
+df.to_csv('births1880_1.csv',index=False,header=False)
+
+path = r'C:\Users\Internet\Desktop\my_docs\births1880_1.csv'
+df = pd.read_csv(path)
+
+#df = pd.read_csv(path, header=None)
+#print(df)
+df = pd.read_csv(path, names=['Names','Births'])
+#print(df)
+
+Sorted = df.sort(['Births'], ascending=False)
+print(Sorted)
